@@ -1,0 +1,18 @@
+compile_pdf:
+  image: aergus/latex
+  script:
+    - latexmk -pdf CV_Andrea_Panontin.tex
+  artifacts:
+    paths:
+      - CV_Andrea_Panontin.pdf
+
+pages:
+  stage: deploy
+  script:
+    - mkdir public  # create a folder called public
+    - mv CV_Andrea_Panontin.pdf public/CV_Andrea_Panontin.pdf
+  artifacts:
+    paths: 
+      - public  # instruct GitLab to keep the public folder
+  only: 
+    - main  # deploy the pdf only for commits made to the master branch
